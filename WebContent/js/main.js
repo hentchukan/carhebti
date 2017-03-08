@@ -3,6 +3,10 @@
  */
 $(document).ready(function() {
 	initPanel();
+	
+	$('#btn-addType').click(function() {
+		$("#panelBody").load('pages/addType.jsp');
+	});
 })
 
 

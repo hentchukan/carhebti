@@ -1,12 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib tagdir="/WEB-INF/tags" prefix="t" %>
 
-<!-- Customized functions -->
-<script src="js/addType.js"></script>
-
-<body>
+<t:mainTemplate page="addType" title="Add a new Type">
+	<jsp:body>
 	<form id="addTypeForm" class="form-horizontal" method="post" action="addType.action">
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="name">Name :</label>
@@ -48,4 +46,6 @@
 			</div>
 		</div>
 	</form>
-</body>
+	</jsp:body>
+
+</t:mainTemplate>

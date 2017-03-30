@@ -9,28 +9,28 @@
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="name">Name :</label>
 			<div class="col-sm-6">
-				<input type="text" class="form-control" id="name"
+				<input type="text" class="form-control" id="name" name="name"
 					placeholder="Enter type name">
 			</div>
 		</div>
 		<div class="form-group">
 			<label class="control-label col-sm-4" for="pwd">Provider type name:</label>
 			<div class="col-sm-6">
-				<input type="text" class="form-control" id="provider"
+				<input type="text" class="form-control" id="provider" name="provider"
 					placeholder="Enter provider type name">
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-4 col-sm-8">
 				<div class="checkbox">
-					<label><input type="checkbox">Odometer</label>
+					<label><input type="checkbox" name="odometer">Odometer</label>
 				</div>
 			</div>
 		</div>
 		<div class="form-group">
 			<div class="col-sm-offset-4 col-sm-8">
 				<div class="checkbox">
-					<label><input type="checkbox">Quantity</label>
+					<label><input type="checkbox" name="quantity">Quantity</label>
 				</div>
 			</div>
 		</div>

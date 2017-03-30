@@ -6,12 +6,14 @@ $(document).ready(function() {
 		var name = $("#name").val();
 		var provider = $("#provider").val();
 		
-		if (!(name || provider)) {
+		if (name == '' || provider == '') {
 			$("#msg-error").html('<Strong>Validation failure</Strong> Some fields are not fulfilled');
 			$("#msg-error").show();
 		} else {
 			$("#msg-error").hide();
 			
+			var odometer = $("[name='odometer']").prop('checked');
+			var quantity = $("[name='quantity']").prop('checked');
 			// submit 
 			$.ajax({
 		        type: "POST",
@@ -28,3 +30,7 @@ $(document).ready(function() {
 		}
 	});
 });
+
+function formSuccess() {
+	
+}

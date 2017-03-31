@@ -1,6 +1,8 @@
 package prv.carhebti.web.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -37,7 +39,9 @@ public class AddTypeController extends HttpServlet {
 		TypeManager manager = new TypeManager();
 		manager.addType(type);
 		
-		response.getWriter().write("success");
+		RequestDispatcher rd = request.getRequestDispatcher("listTypes.go");
+		request.setAttribute("newTypejth", type.getId());
+		rd.forward(request, response);
 	}
 
 }

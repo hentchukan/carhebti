@@ -12,21 +12,7 @@ $(document).ready(function() {
 		} else {
 			$("#msg-error").hide();
 			
-			var odometer = $("[name='odometer']").prop('checked');
-			var quantity = $("[name='quantity']").prop('checked');
-			// submit 
-			$.ajax({
-		        type: "POST",
-		        url: "addType.action",
-		        data: "name=" + name + "&provider=" + provider + "&odometer=" + odometer+ "&quantity=" + quantity,
-		        success : function(text){
-		            if (text == "success") {
-		                formSuccess();
-		            } else {
-		            	deliverError(text);
-		            }
-		        }
-		    });
+			$("#addTypeForm").submit();
 		}
 	});
 });

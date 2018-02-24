@@ -12,13 +12,13 @@ import java.util.Date;
  */
 @Entity
 @NamedQuery(name="Service.findAll", query="SELECT s FROM Service s")
-public class Service implements Serializable {
+public class Service implements Serializable, ICarhebtiEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
 	@Column(name="id_service")
-	private int idService;
+	private Integer idService;
 
 	@Column(name="comment_service")
 	private String commentService;
@@ -43,12 +43,36 @@ public class Service implements Serializable {
 
 	public Service() {
 	}
+	
+	public Service(Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment) {
+		this.type = type;
+		this.dateService = date;
+		
+		this.odometerService = odometer;
+		this.qteService = qte;
+		
+		this.providerService = provider;
+		this.commentService = comment;
+	}
+	
+	public Service(Integer id, Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment) {
+		this.idService = id;
+		
+		this.type = type;
+		this.dateService = date;
+		
+		this.odometerService = odometer;
+		this.qteService = qte;
+		
+		this.providerService = provider;
+		this.commentService = comment;
+	}
 
-	public int getIdService() {
+	public Integer getIdService() {
 		return this.idService;
 	}
 
-	public void setIdService(int idService) {
+	public void setIdService(Integer idService) {
 		this.idService = idService;
 	}
 

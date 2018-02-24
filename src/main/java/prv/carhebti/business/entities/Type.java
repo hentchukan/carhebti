@@ -2,6 +2,9 @@ package prv.carhebti.business.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.List;
 
 
@@ -11,12 +14,12 @@ import java.util.List;
  */
 @Entity
 @NamedQuery(name="Type.findAll", query="SELECT t FROM Type t")
-public class Type implements Serializable {
+public class Type implements Serializable, ICarhebtiEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
-	private int id;
+	private Integer id;
 
 	private String name;
 
@@ -28,6 +31,7 @@ public class Type implements Serializable {
 	private byte qte;
 
 	//bi-directional many-to-one association to Service
+	@JsonIgnore
 	@OneToMany(mappedBy="type", fetch=FetchType.LAZY)
 	private List<Service> services;
 
@@ -38,12 +42,20 @@ public class Type implements Serializable {
 		this.odometer = (odometer)?(byte)1:(byte)0;
 		this.qte = (quantity)?(byte)1:(byte)0;
 	}
+	
+	public Type(Integer id, String name, String provider, Boolean odometer, Boolean quantity) {
+		this.id = id;
+		this.name = name;
+		this.providerColumnName = provider;
+		this.odometer = (odometer)?(byte)1:(byte)0;
+		this.qte = (quantity)?(byte)1:(byte)0;
+	}
 
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -78,7 +90,15 @@ public class Type implements Serializable {
 	public void setQte(byte qte) {
 		this.qte = qte;
 	}
-
+	
+	public boolean isQuantifiable() {
+		return this.qte == 1;
+	}
+	
+	public boolean isOdometerable() {
+		return this.odometer == 1;
+	}
+	
 	public List<Service> getServices() {
 		return this.services;
 	}
@@ -101,4 +121,7 @@ public class Type implements Serializable {
 		return service;
 	}
 
+	public String toString() {
+		return this.name;
+	}
 }

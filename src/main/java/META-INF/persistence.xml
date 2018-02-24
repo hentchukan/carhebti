@@ -5,10 +5,10 @@
 		<class>prv.carhebti.business.entities.Service</class>
 		<class>prv.carhebti.business.entities.Type</class>
         <properties>
-            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3316/farooqfe_carhebti" />
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/farooqfe_carhebti" />
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-            <property name="hibernate.connection.username" value="root" />
-            <property name="hibernate.connection.password" value="rootroot" />
+            <property name="hibernate.connection.username" value="farooqfe_iori" />
+            <property name="hibernate.connection.password" value="Ilyou14ffjp" />
             <property name="hibernate.archive.autodetection" value="class" />
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.format_sql" value="true" />

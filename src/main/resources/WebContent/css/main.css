@@ -1,0 +1,30 @@
+@CHARSET "utf-8";
+
+/* make sidebar nav vertical */
+@media ( min-width : 768px) {
+	.sidebar-nav .navbar .navbar-collapse {
+		padding: 0;
+		max-height: none;
+	}
+	.sidebar-nav .navbar ul {
+		float: none;
+		display: block;
+	}
+	.sidebar-nav .navbar li {
+		float: none;
+		display: block;
+	}
+	.sidebar-nav .navbar li a {
+		padding-top: 12px;
+		padding-bottom: 12px;
+	}
+	.btn-menu {
+		width: 100%;
+		text-align: left;
+	}
+	.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+}

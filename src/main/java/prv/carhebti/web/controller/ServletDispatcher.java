@@ -15,14 +15,21 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("*.go")
 public class ServletDispatcher extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String page = request.getRequestURI().replace("CarHebti", "pages"). replace(".go", ".jsp");
+		String page = processUrl(request.getRequestURI());
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
+	}
+
+	private String processUrl(String requestURI) {
+		String[] splited = requestURI.split("/");
+		String servletContext = splited[splited.length - 1].replace(".go", "").replace(".do", "").replace("List", "");
+		
+		return servletContext + "\\list";
 	}
 
 	/**

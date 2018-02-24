@@ -12,6 +12,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <!-- Customized style -->
 <link rel="stylesheet" href="css/main.css">
 
@@ -19,10 +20,17 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
+
 <!-- Latest compiled JavaScript -->
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
+<script
+	src="js/jquery-dateFormat.min.js"></script>
+	
 <!-- Customized functions -->
 <script src="js/${page}.js"></script>
 <script src="js/template.js"></script>
@@ -34,10 +42,10 @@
 		<div class="row">
 			<div class="col-sm-12">
 			<nav class="navbar navbar-default">
-			<div class="container">
+			<div class="container-fluid">
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse"
-						data-target="#mainHeader">
+						data-target="#myNavbar">
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
@@ -66,13 +74,13 @@
 									class="icon-bar"></span> <span class="icon-bar"></span> <span
 									class="icon-bar"></span>
 							</button>
-							<span class="visible-xs navbar-brand">Sidebar menu</span>
+							<span class="visible-xs navbar-brand">Functions</span>
 						</div>
 						<div class="navbar-collapse collapse sidebar-navbar-collapse">
 							<ul class="nav navbar-nav">
-								<li class="active"><a href="#">Functions</a></li>
-								<li><div class="btn btn-default.focus btn-menu" id="btn-addService">Add Service</div></li>
-								<li><div class="btn btn-menu" id="btn-addType" > Add Type</div></li>
+								<!-- <li class="active"><a href="#">Functions</a></li> -->
+								<li><div class="btn btn-default.focus btn-menu" id="btn-serviceList">Manage Services</div></li>
+								<li><div class="btn btn-menu" id="btn-typeList" > Manage Types</div></li>
 								<li><div class="btn btn-menu" id="btn-showHistory" >Show history</div></li>
 							</ul>
 						</div>

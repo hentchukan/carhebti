@@ -2,6 +2,9 @@
  * 
  */
 $(document).ready(function() {
+	$.getScript("js/pagination.js", function() {
+		paginate();
+	});
 	
 	$('#btn-add').on('click touchstart', function(event) {
 		initFormType();

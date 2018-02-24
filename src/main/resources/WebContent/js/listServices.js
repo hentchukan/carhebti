@@ -2,7 +2,11 @@
  * 
  */
 $(document).ready(function() {
-
+	
+	$.getScript("js/pagination.js", function() {
+		paginate();
+	});
+	
 	$('.datepicker').datepicker({
 		changeMonth : true,
 		changeYear : true,
@@ -23,7 +27,10 @@ $(document).ready(function() {
 		var provider = $("#formService-provider").val();
 		var odometer = (type.odometer) ? $("#formService-odometer").val() : null;
 		var quantity = (type.qte) ? $("#formService-quantity").val() : null;
+		var cost = $("#formService-cost").val();
 		var comment = $("#formService-comment").val();
+		
+		// TODO validation
 		submitForm('save');
 	});
 
@@ -55,18 +62,19 @@ $(document).ready(function() {
 				var comment = $(":hidden:eq(0)", this.cells[4]).val();
 				var odometer = $(":hidden:eq(0)", this.cells[5]).val();
 				var quantity = $(":hidden:eq(0)", this.cells[6]).val();
+				var cost = $(":hidden:eq(0)", this.cells[8]).val();
 
 				var providerType = $(":hidden:eq(0)", this.cells[7]).val();
-				loadFormService(id, date, type, providerType, provider, odometer, quantity, comment);
+				loadFormService(id, date, type, providerType, provider, odometer, quantity, comment, cost);
 			});
 		});
 
 	function initFormService() {
 		var type = $('#formService-type option:selected').data('val');
-		loadFormService("", new Date(), type, type.providerName, null, null, null, "");
+		loadFormService("", new Date(), type, type.providerName, null, null, null, "", 0);
 	}
 
-	function loadFormService(id, date, type, providerType, provider, odometer, quantity, comment) {
+	function loadFormService(id, date, type, providerType, provider, odometer, quantity, comment, cost) {
 		$("#formService-div").show();
 		$("#formService-id").val(id);
 		$("#formService-date").datepicker("setDate", date );
@@ -100,6 +108,7 @@ $(document).ready(function() {
 		}
 
 		$("#formService-comment").val(comment);
+		$("#formService-cost").val(cost);
 		
 		$("#btn-save").removeClass('disabled');
 		if (id)

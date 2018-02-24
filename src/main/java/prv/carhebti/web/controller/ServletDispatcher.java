@@ -29,7 +29,7 @@ public class ServletDispatcher extends HttpServlet {
 		String[] splited = requestURI.split("/");
 		String servletContext = splited[splited.length - 1].replace(".go", "").replace(".do", "").replace("List", "");
 		
-		return servletContext + "\\list";
+		return servletContext + "/list";
 	}
 
 	/**

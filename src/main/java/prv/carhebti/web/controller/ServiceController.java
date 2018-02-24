@@ -151,10 +151,11 @@ public class ServiceController extends HttpServlet {
 		String comment = request.getParameter("formService-comment");
 		BigDecimal odometer = ConversionTool.toBigDecimal(request.getParameter("formService-odometer"));
 		BigDecimal quantity = ConversionTool.toBigDecimal(request.getParameter("formService-quantity"));
+		BigDecimal cost = ConversionTool.toBigDecimal(request.getParameter("formService-cost"));
 
 		// convert to Type
 		Type type = typeManager.retrieve(typeId);
-		return new Service(id, type, date, odometer, quantity, provider, comment);
+		return new Service(id, type, date, odometer, quantity, provider, comment, cost);
 	}
 	
 	/**

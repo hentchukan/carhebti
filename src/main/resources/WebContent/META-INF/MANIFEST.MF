@@ -1,7 +1,2 @@
 Manifest-Version: 1.0
-<<<<<<< HEAD
 Class-Path: /src/main/resources/
-=======
-Class-Path: 
->>>>>>> refs/remotes/origin/master
-

@@ -35,6 +35,9 @@ public class Service implements Serializable, ICarhebtiEntity {
 
 	@Column(name="qte_service")
 	private BigDecimal qteService;
+	
+	@Column(name="cost")
+	private BigDecimal cost;
 
 	//bi-directional many-to-one association to Type
 	@ManyToOne
@@ -44,7 +47,7 @@ public class Service implements Serializable, ICarhebtiEntity {
 	public Service() {
 	}
 	
-	public Service(Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment) {
+	public Service(Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment, BigDecimal cost) {
 		this.type = type;
 		this.dateService = date;
 		
@@ -53,9 +56,11 @@ public class Service implements Serializable, ICarhebtiEntity {
 		
 		this.providerService = provider;
 		this.commentService = comment;
+		
+		this.cost = cost;
 	}
 	
-	public Service(Integer id, Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment) {
+	public Service(Integer id, Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment, BigDecimal cost) {
 		this.idService = id;
 		
 		this.type = type;
@@ -66,6 +71,8 @@ public class Service implements Serializable, ICarhebtiEntity {
 		
 		this.providerService = provider;
 		this.commentService = comment;
+		
+		this.cost = cost;
 	}
 
 	public Integer getIdService() {
@@ -114,6 +121,14 @@ public class Service implements Serializable, ICarhebtiEntity {
 
 	public void setQteService(BigDecimal qteService) {
 		this.qteService = qteService;
+	}
+
+	public BigDecimal getCost() {
+		return cost;
+	}
+
+	public void setCost(BigDecimal cost) {
+		this.cost = cost;
 	}
 
 	public Type getType() {

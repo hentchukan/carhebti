@@ -1,6 +1,5 @@
 @CHARSET "utf-8";
 
-<<<<<<< HEAD
 /* make sidebar nav vertical */
 @media ( min-width : 768px) {
 	.sidebar-nav .navbar .navbar-collapse {
@@ -8,8 +7,15 @@
 		max-height: none;
 	}
 	.sidebar-nav .navbar ul {
-		float: none;
 		display: block;
+		 padding: 0px;
+	}
+	.navbar-ul {
+		float: none;
+	}
+	
+	.navbar-ul-right {
+		float: right;
 	}
 	.sidebar-nav .navbar li {
 		float: none;
@@ -23,34 +29,67 @@
 		width: 100%;
 		text-align: left;
 	}
+	.btn-menu-right {
+		width: 100%;
+		text-align: right;
+	}
 	.vcenter {
     display: inline-block;
     vertical-align: middle;
     float: none;
-}
-=======
-/* make sidebar nav vertical */ 
-@media (min-width: 768px) {
-  .sidebar-nav .navbar .navbar-collapse {
-    padding: 0;
-    max-height: none;
-  }
-  .sidebar-nav .navbar ul {
-    float: none;
-    display: block;
-  }
-  .sidebar-nav .navbar li {
-    float: none;
-    display: block;
-  }
-  .sidebar-nav .navbar li a {
-    padding-top: 12px;
-    padding-bottom: 12px;
-  }
-  
-  .btn-menu {
-  	width: 100%;
-  	text-align: left;
-  }
->>>>>>> refs/remotes/origin/master
+	}
+	
+	.flag-icon-background {
+		background-size: contain;
+		background-position: 50%;
+		background-repeat: no-repeat;
+	}
+	.flag-icon {
+		background-size: contain;
+		background-position: 50%;
+		background-repeat: no-repeat;
+		position: relative;
+		display: inline-block;
+		width: 1.33333333em;
+		line-height: 1em;
+	}
+	.flag-icon:before {
+		content: "\00a0";
+	}
+	.flag-icon.flag-icon-squared {
+		width: 1em;
+	}
+	.img-thumbnail {
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    padding: 4px;
+    line-height: 1.42857143;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    -webkit-transition: all .2s ease-in-out;
+    -o-transition: all .2s ease-in-out;
+    transition: all .2s ease-in-out;
+	}
+	.flag-wrapper .flag {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+	}
+	.flag-icon-tn {
+		background-image: url(../flags/tn.svg);
+	}
+	.flag-icon-fr {
+		background-image: url(../flags/fr.svg);
+	}
+	.flag-icon-gb {
+		background-image: url(../flags/gb.svg);
+	}
+	
 }

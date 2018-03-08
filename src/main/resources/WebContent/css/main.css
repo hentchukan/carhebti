@@ -27,4 +27,57 @@
     vertical-align: middle;
     float: none;
 }
+
+.flag-icon-background {
+		background-size: contain;
+		background-position: 50%;
+		background-repeat: no-repeat;
+	}
+	.flag-icon {
+		background-size: contain;
+		background-position: 50%;
+		background-repeat: no-repeat;
+		position: relative;
+		display: inline-block;
+		width: 1.33333333em;
+		line-height: 1em;
+	}
+	.flag-icon:before {
+		content: "\00a0";
+	}
+	.flag-icon.flag-icon-squared {
+		width: 1em;
+	}
+	.img-thumbnail {
+		display: inline-block;
+		max-width: 100%;
+		height: auto;
+		padding: 4px;
+		line-height: 1.42857143;
+		background-color: #fff;
+		border: 1px solid #ddd;
+		border-radius: 4px;
+		-webkit-transition: all .2s ease-in-out;
+		-o-transition: all .2s ease-in-out;
+		transition: all .2s ease-in-out;
+	}
+	.flag-wrapper .flag {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+	}
+	.flag-icon-tn {
+		background-image: url(../flags/tn.svg);
+	}
+	.flag-icon-fr {
+		background-image: url(../flags/fr.svg);
+	}
+	.flag-icon-gb {
+		background-image: url(../flags/gb.svg);
+	}
 }

@@ -1,3 +1,5 @@
+<%@page import="prv.carhebti.business.entities.Service"%>
+<%@page import="prv.carhebti.common.tools.ConversionTool"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -5,7 +7,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
-<fmt:setLocale value="${language}_FR" />
+<fmt:setLocale value="${language}" />
 <fmt:setBundle basename="messages.labels" />
 
 <fmt:message key="labels.listservices.title" var="title"/>
@@ -40,12 +42,26 @@
 		</c:if>
 		
 		<div id="content" class="container table-responsive" style="width: inherit;">
+			
+			<div class="form-group">
+				<label class="control-label col-sm-2" for="formService-car"><fmt:message key="labels.listservices.car" /> :</label>
+				<div class="col-sm-6">
+					<select class="form-control" id="filterService-car" name="filterService-car" onchange="filterServices()">
+							<c:forEach items="${cars }" var="car">
+								<option value="${car.id }" ${settings.car.id == car.id ? 'selected' : '' } data-val='{"id":"${car.id }","manifacturer":"${car.manifacturer }","trade":"${car.trade}","number":"${car.number}","greyCard":"${car.greyCard}"}'>${car.number }</option>
+							</c:forEach>
+					</select>
+				</div>
+			</div>
+			
+			<br />
 			<input type='hidden' id='current_page' />  
 			<input type='hidden' id='show_per_page' /> 
 			
+			<br />
 			<table class="listService table table-bordered table-hover table-striped table-condensed" data-link="row">
 				<thead>
-					<tr>
+					<tr >
 						<td><fmt:message key="labels.listservices.id" /></td>
 						<td><fmt:message key="labels.listservices.date" /></td>
 						<td><fmt:message key="labels.listservices.type" /></td>
@@ -54,18 +70,17 @@
 						<td hidden="true">Klm</td>
 						<td hidden="true">Qte</td>
 						<td hidden="true">Cost</td>
+						<td hidden="true">Car</td>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${services}" var="service">
-						<tr class="${newService == service.idService ? 'selectedRow' : 'none' } line pagination" data-href="clickable" data-toggle="modal" data-target="#serviceModal" data-whatever="${service.idService }">
-							<td>${service.idService } </td>
+						<tr class="${newService == service.id ? 'selectedRow' : 'none' } line pagination" data-href="clickable" data-toggle="modal" data-target="#serviceModal" data-whatever="${service.id }">
+							<td>${service.id } </td>
 							
-							<td>
-								<c:out value="${service.dateService.date}/${service.dateService.month}/${service.dateService.year}"></c:out>
-							</td>
+							<td><c:out value="${service.stringDate }"></c:out></td>
 							
-							<td>${service.type}</td>
+							<td data-val='{"id":${service.type.id },"name":"${service.type.name }","odometer":${service.type.odometer},"qte":${service.type.qte},"providerName":"${service.type.providerColumnName}"}'>${service.type}</td>
 							
 							<td hidden="true"><input type="hidden" value="${service.providerService }"/></td>
 							<td hidden="true"><input type="hidden" value="${service.commentService }"/> </td>
@@ -74,6 +89,7 @@
 							
 							<td hidden="true"><input type="hidden" value="${service.type.providerColumnName }"/></td>
 							<td hidden="true"><input type="hidden" value="${service.cost }"/></td>
+							<td hidden="true"><input type="hidden" value="${service.car.number }"/></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -84,7 +100,6 @@
 		<p>
 		<div id="page_navigation" align="center">
 		</div>
-		<br/>
 		
 		<p>
 		<div class="btn-group btn-group-justified">
@@ -115,6 +130,17 @@
 			<form id="formService" class="form-horizontal" method="post" >
 				
 				<input type="hidden" id="formService-id" name="formService-id">
+				
+				<div class="form-group">
+					<label class="control-label col-sm-2" for="formService-car"><fmt:message key="labels.listservices.car" /> :</label>
+					<div class="col-sm-6">
+						<select class="form-control" id="formService-car" name="formService-car">
+								<c:forEach items="${cars }" var="car">
+									<option value="${car.id }" data-val='{"id":${car.id },"manifacturer":"${car.manifacturer }","trade":${car.trade},"number":${car.number},"greyCard":"${car.greyCard}"}'>${car.number }</option>
+								</c:forEach>
+						</select>
+					</div>
+				</div>
 				
 				<div class="form-group">
 					<label class="control-label col-sm-2" for="formService-type"><fmt:message key="labels.listservices.type" /> :</label>

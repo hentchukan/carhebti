@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import org.apache.log4j.Logger;
 
 import prv.carhebti.business.entities.Type;
+import prv.carhebti.business.entities.User;
 
 public class TypeManager extends AbstractManager<Type> {
 
@@ -75,6 +76,19 @@ public class TypeManager extends AbstractManager<Type> {
 		return em.createNamedQuery("Type.findAll", Type.class).getResultList();
 	}
 
+	@Override
+	public List<Type> retrieve(User owner) {
+		log.info("Retrieve "+owner.getUsername()+"'s Type items list");
+		EntityManager em = getEntityManager();
+
+		if (em == null) {
+			log.error("No EntityManager");
+			return null;
+		}
+
+		return em.createNamedQuery("Type.findAll", Type.class).getResultList();
+	}
+	
 	@Override
 	public Type retrieve(Integer id) {
 		log.info("Retrieve Type item whose id is "+id);

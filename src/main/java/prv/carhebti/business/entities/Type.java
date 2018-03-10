@@ -13,7 +13,10 @@ import java.util.List;
  * 
  */
 @Entity
-@NamedQuery(name="Type.findAll", query="SELECT t FROM Type t")
+@NamedQueries({
+	@NamedQuery(name="Type.findAll", query="SELECT t FROM Type t"),
+	@NamedQuery(name="Type.findByUser", query="SELECT t FROM Type t where t.owner = :owner")
+})
 public class Type implements Serializable, ICarhebtiEntity {
 	private static final long serialVersionUID = 1L;
 
@@ -29,26 +32,32 @@ public class Type implements Serializable, ICarhebtiEntity {
 	private String providerColumnName;
 
 	private byte qte;
-
+	
+	@ManyToOne
+	@JoinColumn(name="owner")
+	private User owner;
+	
 	//bi-directional many-to-one association to Service
 	@JsonIgnore
 	@OneToMany(mappedBy="type", fetch=FetchType.LAZY)
 	private List<Service> services;
 
 	public Type() {}
-	public Type(String name, String provider, Boolean odometer, Boolean quantity) {
+	public Type(String name, String provider, Boolean odometer, Boolean quantity, User owner) {
 		this.name = name;
 		this.providerColumnName = provider;
 		this.odometer = (odometer)?(byte)1:(byte)0;
 		this.qte = (quantity)?(byte)1:(byte)0;
+		this.owner = owner;
 	}
 	
-	public Type(Integer id, String name, String provider, Boolean odometer, Boolean quantity) {
+	public Type(Integer id, String name, String provider, Boolean odometer, Boolean quantity, User owner) {
 		this.id = id;
 		this.name = name;
 		this.providerColumnName = provider;
 		this.odometer = (odometer)?(byte)1:(byte)0;
 		this.qte = (quantity)?(byte)1:(byte)0;
+		this.owner = owner;
 	}
 
 	public Integer getId() {

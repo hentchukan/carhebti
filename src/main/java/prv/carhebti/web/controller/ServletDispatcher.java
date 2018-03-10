@@ -13,13 +13,16 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class ServletDispatcher
  */
 @WebServlet("*.go")
-public class ServletDispatcher extends HttpServlet {
+public class ServletDispatcher extends InitContext {
 	private static final long serialVersionUID = 1L;
 	
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		super.service(request, response);
+		
 		String page = processUrl(request.getRequestURI());
 		RequestDispatcher rd = request.getRequestDispatcher(page);
 		rd.forward(request, response);
@@ -27,16 +30,9 @@ public class ServletDispatcher extends HttpServlet {
 
 	private String processUrl(String requestURI) {
 		String[] splited = requestURI.split("/");
-		String servletContext = splited[splited.length - 1].replace(".go", "").replace(".do", "").replace("List", "");
+		String servletContext = splited[splited.length - 1].replace(".go", "").replace(".do", "").replace("List", "/list").replace("Page", "/page");
 		
-		return servletContext + "/list";
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		return servletContext ;
 	}
 
 }

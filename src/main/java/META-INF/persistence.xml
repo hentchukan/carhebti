@@ -4,6 +4,7 @@
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>prv.carhebti.business.entities.Service</class>
 		<class>prv.carhebti.business.entities.Type</class>
+		<class>prv.carhebti.business.entities.Settings</class>
         <properties>
             <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/farooqfe_carhebti" />
             <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />

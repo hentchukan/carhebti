@@ -26,9 +26,8 @@ SET time_zone = "+00:00";
 -- Table structure for table `config`
 --
 
-CREATE TABLE IF NOT EXISTS `config` (
+CREATE TABLE IF NOT EXISTS `Settings` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `odometer` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 

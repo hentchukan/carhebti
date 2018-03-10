@@ -7,22 +7,22 @@ import java.lang.reflect.Method;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
 import prv.carhebti.business.dao.TypeManager;
 import prv.carhebti.business.entities.Type;
+import prv.carhebti.business.entities.User;
 import prv.carhebti.common.tools.ConversionTool;
+import prv.carhebti.common.tools.WebTool;
 
 /**
  * Servlet implementation class ListTypesController
  */
 @WebServlet({ "/type/*" })
-public class TypeController extends HttpServlet {
+public class TypeController extends InitContext {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -47,7 +47,10 @@ public class TypeController extends HttpServlet {
 	 */
     @Override
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String methodName = getMothod(request);
+    	
+    	super.service(request, response);
+    	
+		String methodName = getMethod(request);
 		try {
 			Method method = getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);
 			method.invoke(this, request, response);
@@ -65,28 +68,36 @@ public class TypeController extends HttpServlet {
      */
 	public void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.setAttribute(TYPE_LIST, typeManager.retrieve());
+		User user = WebTool.getUser(request);
+		if (user == null)
+			throw new ServletException("No User");
+		
 		String accept = request.getHeader("accept");
 		
 		if (accept.contains("html")) {
-			request.setAttribute(TYPE_LIST, typeManager.retrieve());
-			swipeSessionAttributes(request);
+			request.setAttribute(TYPE_LIST, typeManager.retrieve(user));
+			WebTool.swipeSessionAttributes(request, CREATION, UPDATE, DELETE);
 			RequestDispatcher rd = request.getRequestDispatcher(JSP_VIEW);
 			rd.forward(request, response);
 		} else if (accept.contains("json")) {
-			String serviceList = ConversionTool.toJson(typeManager.retrieve());
-			response.getWriter().println(serviceList);
+			String typeList = ConversionTool.toJson(typeManager.retrieve(user));
+			response.getWriter().println(typeList);
 		}
 	}
 	
 	/**
-	 * save a service (create or update) and return it's Id to ServiceList page
+	 * save a type (create or update) and return it's Id to TypeList page
 	 * @param request
 	 * @param response
 	 * @throws ServletException
 	 * @throws IOException
 	 */
 	public void save(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		User user = WebTool.getUser(request);
+		if (user == null)
+			throw new ServletException("No User");
+		
 		String direction = null;
 		Type type = createBean(request);
 
@@ -110,6 +121,11 @@ public class TypeController extends HttpServlet {
 	 * @throws IOException
 	 */
 	public void delete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		User user = WebTool.getUser(request);
+		if (user == null)
+			throw new ServletException("No User");
+		
 		Integer id = ConversionTool.toInteger(request.getParameter("formType-id"));
 		if (id == null) {
 			// TODO return 404 not found
@@ -130,30 +146,8 @@ public class TypeController extends HttpServlet {
 	 * @param request
 	 * @return method name to be executed
 	 */
-	private String getMothod(HttpServletRequest request) {
+	private String getMethod(HttpServletRequest request) {
 		return request.getRequestURI().split("/")[request.getRequestURI().split("/").length - 1].replace(".do", "");
-	}
-	
-	private void swipeSessionAttributes(HttpServletRequest request) {
-		HttpSession session = request.getSession(false);
-		
-		if (session == null)
-			return ;
-		
-		if (session.getAttribute(CREATION) != null) {
-			request.setAttribute(CREATION, session.getAttribute(CREATION));
-			session.removeAttribute(CREATION);
-		}
-		
-		if (session.getAttribute(UPDATE) != null) {
-			request.setAttribute(UPDATE, session.getAttribute(UPDATE));
-			session.removeAttribute(UPDATE);
-		}
-		
-		if (session.getAttribute(DELETE) != null) {
-			request.setAttribute(DELETE, session.getAttribute(DELETE));
-			session.removeAttribute(DELETE);
-		}
 	}
 	
 	private Type createBean(HttpServletRequest request) {
@@ -162,7 +156,8 @@ public class TypeController extends HttpServlet {
 		String provider = request.getParameter("formType-provider");
 		Boolean odometer = Boolean.valueOf(request.getParameter("formType-odometer") != null );
 		Boolean quantity = Boolean.valueOf(request.getParameter("formType-quantity") != null);
+		User user = WebTool.getUser(request);
 		
-		return new Type(id, name, provider, odometer, quantity);
+		return new Type(id, name, provider, odometer, quantity, user);
 	}
 }

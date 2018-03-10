@@ -2,6 +2,9 @@ package prv.carhebti.business.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+
+import prv.carhebti.common.tools.ConversionTool;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -11,14 +14,17 @@ import java.util.Date;
  * 
  */
 @Entity
-@NamedQuery(name="Service.findAll", query="SELECT s FROM Service s")
+@NamedQueries({
+	@NamedQuery(name="Service.findAll", query="SELECT s FROM Service s"),
+	@NamedQuery(name="Service.findByUser", query="SELECT s FROM Service s where s.owner = :owner")
+})
 public class Service implements Serializable, ICarhebtiEntity {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue
 	@Column(name="id_service")
-	private Integer idService;
+	private Integer id;
 
 	@Column(name="comment_service")
 	private String commentService;
@@ -44,10 +50,18 @@ public class Service implements Serializable, ICarhebtiEntity {
 	@JoinColumn(name="type_service")
 	private Type type;
 
+	@ManyToOne
+	@JoinColumn(name="owner")
+	private User owner;
+	
+	@ManyToOne
+	@JoinColumn(name="car")
+	private Car car;
+	
 	public Service() {
 	}
 	
-	public Service(Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment, BigDecimal cost) {
+	public Service(Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment, BigDecimal cost, User owner, Car car) {
 		this.type = type;
 		this.dateService = date;
 		
@@ -58,10 +72,12 @@ public class Service implements Serializable, ICarhebtiEntity {
 		this.commentService = comment;
 		
 		this.cost = cost;
+		this.owner = owner;
+		this.car = car;
 	}
 	
-	public Service(Integer id, Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment, BigDecimal cost) {
-		this.idService = id;
+	public Service(Integer id, Type type, Date date, BigDecimal odometer, BigDecimal qte, String provider, String comment, BigDecimal cost, User owner, Car car) {
+		this.id = id;
 		
 		this.type = type;
 		this.dateService = date;
@@ -73,14 +89,16 @@ public class Service implements Serializable, ICarhebtiEntity {
 		this.commentService = comment;
 		
 		this.cost = cost;
+		this.owner = owner;
+		this.car = car;
 	}
 
-	public Integer getIdService() {
-		return this.idService;
+	public Integer getId() {
+		return this.id;
 	}
 
-	public void setIdService(Integer idService) {
-		this.idService = idService;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getCommentService() {
@@ -138,5 +156,24 @@ public class Service implements Serializable, ICarhebtiEntity {
 	public void setType(Type type) {
 		this.type = type;
 	}
+	
+	public User getOwner() {
+		return owner;
+	}
 
+	public void setOwner(User owner) {
+		this.owner = owner;
+	}
+
+	public Car getCar() {
+		return car;
+	}
+
+	public void setCar(Car car) {
+		this.car = car;
+	}
+
+	public String getStringDate() {
+		return ConversionTool.toString(dateService);
+	}
 }

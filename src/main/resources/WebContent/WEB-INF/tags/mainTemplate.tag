@@ -6,6 +6,7 @@
 
 <c:set var="language" value="${not empty param.language ? param.language : not empty language ? language : pageContext.request.locale}" scope="session" />
 <c:set var="direction" value="${language == 'ar' ? 'rtl' : 'ltr'}"/>
+<c:set var="user" value="<%= session.getAttribute(\"user\") %>" />
 
 <fmt:setLocale value="${language }" />
 <fmt:setBundle basename="messages.labels" />
@@ -38,6 +39,8 @@
 
 <script
 	src="js/jquery-dateFormat.min.js"></script>
+
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 	
 <!-- Customized functions -->
 <script src="js/${page}.js"></script>
@@ -58,7 +61,7 @@
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#">Me</a>
+					<a class="navbar-brand" href="#">${ user.fullname}</a>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar" style="padding-right: 5px">
 					<ul class="nav navbar-nav navbar-right" style="padding-top: 10px">
@@ -90,11 +93,14 @@
 							<ul class="nav navbar-nav">
 								<li><div class="btn btn-default.focus btn-menu${direction == 'rtl' ?  '-right' : ''}" id="btn-serviceList"><fmt:message key="labels.mainpage.manageservice" /> </div></li>
 								<li><div class="btn btn-menu${direction == 'rtl' ?  '-right' : ''}" id="btn-typeList"><fmt:message key="labels.mainpage.managetype" /></div></li>
-								<li><div class="btn btn-menu${direction == 'rtl' ?  '-right' : ''}" id="btn-budget"><fmt:message key="labels.mainpage.budget" /></div></li>
+								<li><div class="btn btn-menu${direction == 'rtl' ?  '-right' : ''}" id="btn-carList"><fmt:message key="labels.mainpage.managecar" /></div></li>
+								<li><div class="btn btn-menu${direction == 'rtl' ?  '-right' : ''}" id="btn-budgetPage"><fmt:message key="labels.mainpage.budget" /></div></li>
+								<li><div class="btn btn-menu${direction == 'rtl' ?  '-right' : ''}" id="btn-settingsPage"><fmt:message key="labels.mainpage.settings" /></div></li>
 							</ul>
 						</div>
 						<!--/.nav-collapse -->
 					</div>
+						
 				</div>
 			</div>
 			

@@ -22,13 +22,13 @@ function paginate() {
         - links to specific pages 
         - link to next page 
     */  
-    var navigation_html = '<a class="previous_link btn btn-alt-second" onclick="javascript:previous();"><<</a>';  
+    var navigation_html = '<ul class="pager"><li><a class="previous_link btn btn-alt-second" onclick="javascript:previous();"><<</a></li>';  
     var current_link = 0;  
     while(number_of_pages > current_link){  
-        navigation_html += '<a class="page_link btn btn-alt-second" onclick="javascript:go_to_page(' + current_link +')" longdesc="' + current_link +'">'+ (current_link + 1) +'</a>';  
+        navigation_html += '<li><a class="page_link btn btn-alt-second" onclick="javascript:go_to_page(' + current_link +')" longdesc="' + current_link +'">'+ (current_link + 1) +'</a></li>';  
         current_link++;  
     }  
-    navigation_html += '<a class="next_link btn btn-alt-second" onclick="javascript:next();">>></a>';  
+    navigation_html += '<li><a class="next_link btn btn-alt-second" onclick="javascript:next();">>></a></li></ul>';  
   
     $('#page_navigation').html(navigation_html);
   

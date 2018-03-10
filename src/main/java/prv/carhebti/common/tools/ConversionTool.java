@@ -55,14 +55,30 @@ public class ConversionTool {
     	return objectMapper.writeValueAsString(entities);
 	}
 
+	public static String toString(Date date) {
+		
+		if (date == null)
+			return "";
+
+		String parsed = null;
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		parsed = sdf.format(date);
+
+		return parsed;
+	}
+	
 	public static Date toDate(String dateString) {
+		return toDate(dateString, "dd/MM/yyyy");
+	}
+
+	public static Date toDate(String dateString, String pattern) {
 
 		if (dateString == null || dateString.isEmpty())
 			return null;
 
 		Date date = null;
 		try {
-			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+			SimpleDateFormat sdf = new SimpleDateFormat(pattern);
 			date = sdf.parse(dateString);
 		} catch (ParseException e) {
 			date = null;
@@ -70,7 +86,7 @@ public class ConversionTool {
 
 		return date;
 	}
-
+	
 	public static BigDecimal toBigDecimal(String parameter) {
 		BigDecimal converted = null;
 		if (parameter == null || parameter.isEmpty())

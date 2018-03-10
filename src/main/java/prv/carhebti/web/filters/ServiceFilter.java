@@ -1,4 +1,4 @@
-package prv.carhebti.web.controller;
+package prv.carhebti.web.filters;
 
 import java.io.IOException;
 import javax.servlet.Filter;
@@ -17,26 +17,27 @@ import javax.servlet.http.HttpServletResponse;
 @WebFilter({ "/service/*" })
 public class ServiceFilter implements Filter {
 
-    /**
-     * Default constructor. 
-     */
-    public ServiceFilter() {
-    }
+	/**
+	 * Default constructor.
+	 */
+	public ServiceFilter() {
+	}
 
 	/**
 	 * Filter static resources and redirect them without /service/ catcher
 	 */
-	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
+	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
+			throws IOException, ServletException {
 		if (req instanceof HttpServletRequest) {
-		      HttpServletRequest request = (HttpServletRequest) req;
-		      HttpServletResponse response = (HttpServletResponse) resp;
-		      
-		      if (request.getRequestURI().contains(".do") || request.getRequestURI().contains(".go")) 
-		    	  // pass the request along the filter chain
-		    	  chain.doFilter(request, response);
-		      else {
-		    	  response.sendRedirect(request.getRequestURI().replace("/service/", "/"));
-		      }
+			HttpServletRequest request = (HttpServletRequest) req;
+			HttpServletResponse response = (HttpServletResponse) resp;
+
+			if (request.getRequestURI().contains(".do") || request.getRequestURI().contains(".go"))
+				// pass the request along the filter chain
+				chain.doFilter(request, response);
+			else {
+				response.sendRedirect(request.getRequestURI().replace("/service/", "/"));
+			}
 		}
 	}
 

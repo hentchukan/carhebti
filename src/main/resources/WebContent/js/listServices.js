@@ -14,7 +14,8 @@ $(document).ready(function() {
 	});
 					
 	$.validate();
-
+	filterServices();
+	
 	$('#btn-add').on('click touchstart', function(event) {
 		initFormService();
 	});
@@ -56,7 +57,7 @@ $(document).ready(function() {
 			.on('click tap', function() {
 				var id = $(this)[0].cells[0].innerHTML;
 				var date = $(this)[0].cells[1].innerHTML;
-				var type = $(this)[0].cells[2].innerHTML;
+				var type = $.parseJSON( $(this)[0].cells[2].dataset['val']);
 
 				var provider = $(":hidden:eq(0)", this.cells[3]).val();
 				var comment = $(":hidden:eq(0)", this.cells[4]).val();
@@ -78,7 +79,8 @@ $(document).ready(function() {
 		$("#formService-div").show();
 		$("#formService-id").val(id);
 		$("#formService-date").datepicker("setDate", date );
-
+		$("#formService-type").val(type.id);
+		
 		$("#formService-provider").val(provider);
 		$("#formService-providerType")[0].innerHTML = providerType + " :";
 
@@ -169,3 +171,28 @@ $(document).ready(function() {
 		modal.find('.modal-body input').val(recipient)
 	})
 });
+
+function filterServices() {
+
+	// Declare variables 
+	var input, filter, table, tr, td, i;
+	
+	input = $('#filterService-car option:selected').data('val');
+	
+	filter = input.number;
+	tr = $('#content').find("tr.line");
+
+		  // Loop through all table rows, and hide those who don't match the search query
+		  for (i = 0; i < tr.length; i++) {
+		    td = tr[i].getElementsByTagName("td")[9];
+		    if (td) {
+		      if (td.innerHTML.indexOf(filter) > -1) {
+		        tr[i].style.display = "table-row";
+		        tr[i].className = 'line pagination';
+		      } else {
+		        tr[i].style.display = "none";
+		        tr[i].className = 'line';
+		      }
+		    }
+		  }
+	}
